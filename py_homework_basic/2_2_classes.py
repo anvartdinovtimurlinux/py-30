@@ -70,7 +70,7 @@ class Goat(Animal, AnimalGivingMilk):
 
 class Sheep(Animal, AnimalGivingWool):
     def __init__(self, name, weight):
-        super().__init__(name, weight, 'овца', 'трава', 'Бееее>')
+        super().__init__(name, weight, 'овца', 'трава', 'Бееее')
 
 
 class Hen(Animal, AnimalGivingEggs):
