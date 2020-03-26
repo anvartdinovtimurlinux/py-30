@@ -30,6 +30,11 @@ operations = {
     '/': divide,
 }
 
+
+class NotPositiveIntegerError(Exception):
+    pass
+
+
 while True:
     print('\nПрограмма реализует польскую нотацию для целых положительных чисел')
     print('В данный момент доступны сложение (+), вычитание (-), '
@@ -38,13 +43,21 @@ while True:
 
     try:
         operator, x, y = input().strip().split()
-        assert operator in operations
-        x, y = map(int, (x, y))
-        assert x > 0 and y > 0 and x == round(x) and y == round(y)
-
-        result = operations[operator](x, y)
-    except (ValueError, AssertionError):
+    except ValueError:
         print('Вы ввели некорректный пример')
+        continue
+
+    assert operator in operations, 'Используйте следующие операторы: + - * /'
+
+    try:
+        x, y = map(int, (x, y))
+        if x < 0 or y < 0 or x != round(x) or y != round(y):
+            raise NotPositiveIntegerError('Вы должны вводить положительные целые числа')
+        result = operations[operator](x, y)
+    except NotPositiveIntegerError as e:
+        print(e)
+    except ValueError:
+        print('Вторым и третьим аргументом должны быть целые положительные числа')
     except ZeroDivisionError:
         print('На ноль делить нельзя! Это ж не джаваскрипт какой-нибудь')
     else:
