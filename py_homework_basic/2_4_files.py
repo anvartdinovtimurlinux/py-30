@@ -1,3 +1,4 @@
+import sys
 from pprint import pprint
 
 
@@ -10,26 +11,23 @@ def create_cook_book(path_to_file: str) -> dict:
     """
     cook_book = {}
 
-    try:
-        with open(path_to_file, encoding='utf8') as f:
-            while True:
-                dish = f.readline().strip()
-                if not dish:
-                    break
-                cook_book[dish] = []
+    with open(path_to_file, encoding='utf8') as f:
+        while True:
+            dish = f.readline().strip()
+            if not dish:
+                break
+            cook_book[dish] = []
 
-                ingredients_amount = int(f.readline().strip())
-                for _ in range(ingredients_amount):
-                    ingredient_name, quantity, measure = f.readline().strip().split(' | ')
-                    cook_book[dish].append({
-                        'ingredient_name': ingredient_name,
-                        'quantity': int(quantity),
-                        'measure': measure,
-                    })
-    except FileNotFoundError:
-        print('Неправильный путь к файлу')
+            ingredients_amount = int(f.readline().strip())
+            for _ in range(ingredients_amount):
+                ingredient_name, quantity, measure = f.readline().strip().split(' | ')
+                cook_book[dish].append({
+                    'ingredient_name': ingredient_name,
+                    'quantity': int(quantity),
+                    'measure': measure,
+                })
 
-        f.readline()  # Пустая строка отделяет в файле одно блюдо от другого
+            f.readline()  # Пустая строка отделяет в файле одно блюдо от другого
 
     return cook_book
 
@@ -59,6 +57,11 @@ def get_shop_list_by_dishes(dishes_list: list, persons_amount: int) -> dict:
 
 
 if __name__ == '__main__':
-    new_cook_book = create_cook_book('recipes.txt')
+    try:
+        new_cook_book = create_cook_book('recipes.txt')
+    except FileNotFoundError:
+        print('Неправильный путь к файлу')
+        sys.exit()
+
     new_shop_list_by_dishes = get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
     pprint(new_shop_list_by_dishes)
