@@ -14,7 +14,7 @@ class ExecutionTime:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.finish_time = time()
         print(f'Время окончания работы функции - {self.get_time_to_print(self.finish_time)}')
-        print(f'Время работы функции {self.function.__name__} - {(self.finish_time - self.start_time):.8f}c')
+        print(f'Время работы функции {self.function.__name__} - {(self.finish_time - self.start_time):.3f}c')
 
     def get_time_to_print(self, time):
         return ':'.join(map(str, list(localtime(time))[3:6]))
