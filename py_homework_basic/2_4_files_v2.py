@@ -54,6 +54,6 @@ class CookBook:
         return '\n'.join(result)
 
 
-my_recipes_book = CookBook('recipes.txt')
+my_recipes_book = CookBook('2_5_context/recipes.txt')
 print(my_recipes_book)
 pprint(my_recipes_book.get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2))

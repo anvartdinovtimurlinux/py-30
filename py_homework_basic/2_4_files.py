@@ -58,7 +58,7 @@ def get_shop_list_by_dishes(dishes_list: list, persons_amount: int) -> dict:
 
 if __name__ == '__main__':
     try:
-        new_cook_book = create_cook_book('recipes.txt')
+        new_cook_book = create_cook_book('2_5_context/recipes.txt')
     except FileNotFoundError:
         print('Неправильный путь к файлу')
         sys.exit()

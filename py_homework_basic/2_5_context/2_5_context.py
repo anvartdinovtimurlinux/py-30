@@ -1,23 +1,24 @@
 from time import time, localtime
 from random import randint
+from typing import Callable
 
 
 class ExecutionTime:
-    def __init__(self, function):
+    def __init__(self, function: Callable[[list], list]) -> None:
         self.function = function
 
-    def __enter__(self):
+    def __enter__(self) -> Callable[[list], list]:
         self.start_time = time()
         print(f'Время начала работы функции - {self.get_time_to_print(self.start_time)}')
         return self.function
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
         self.finish_time = time()
         print(f'Время окончания работы функции - {self.get_time_to_print(self.finish_time)}')
         print(f'Время работы функции {self.function.__name__} - {(self.finish_time - self.start_time):.3f}c')
 
     def get_time_to_print(self, time):
-        return ':'.join(map(str, list(localtime(time))[3:6]))
+        return ':'.join(map(str, localtime(time)[3:6]))
 
 
 def get_random_number_list(list_length: int) -> list:
