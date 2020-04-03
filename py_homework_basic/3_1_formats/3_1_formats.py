@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 
 
 def get_top_words(words: list, top_words_count: int, predicate: Callable[[str], bool]) -> list:
-    words_by_predicate = list(filter(predicate, words))
+    words_by_predicate = list(map(str.lower, filter(predicate, words)))
     most_common_words = Counter(words_by_predicate).most_common(top_words_count)
     return [word[0] for word in most_common_words]
 
